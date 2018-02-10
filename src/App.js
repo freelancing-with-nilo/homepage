@@ -22,19 +22,36 @@ const links = [
   { id: shortid.generate(), path: '/blog', name: 'Blog' },
 ];
 
+const routes = [
+  { id: shortid.generate(), exact: true, path: '/', component: Home },
+  { id: shortid.generate(), exact: false, path: '/about', component: About },
+  { id: shortid.generate(), exact: false, path: '/casestudies', component: CaseStudies },
+  { id: shortid.generate(), exact: false, path: '/portfolio', component: Portfolio },
+  { id: shortid.generate(), exact: false, path: '/blog', component: Blog },
+]
+
 class App extends Component {
   render() {
     return (
       <Router>
         <div>
-          <ul>
-            {links.map(link => (
-              <li key={link.id}>
-                <Link to={link.path}>{link.name}</Link>
-              </li>
+          <nav>
+            <ul>
+              {links.map(link => (
+                <li key={link.id}>
+                  <Link to={link.path}>{link.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            {routes.map(route => (
+              <Route key={route.id} exact={route.exact} path={route.path} component={route.component} />
             ))}
-          </ul>
+          </div>
         </div>
+
       </Router>
     );
   }
